@@ -201,9 +201,11 @@ ifeq ($(TW_FORCE_USE_BUSYBOX), true)
 else
     TW_USE_TOOLBOX := true
 endif
-ifeq ($(TW_EXCLUDE_MTP),)
+
+ifneq ($(TW_EXCLUDE_MTP),false)
     LOCAL_SHARED_LIBRARIES += libtwrpmtp-ffs
 endif
+
 ifeq ($(BOARD_USES_RECOVERY_AS_BOOT), true)
     LOCAL_CFLAGS += -DBOARD_USES_RECOVERY_AS_BOOT
 endif
@@ -212,7 +214,7 @@ ifeq ($(BOARD_BUILD_SYSTEM_ROOT_IMAGE), true)
 endif
 
 #TWRP Build Flags
-ifeq ($(TW_EXCLUDE_MTP),)
+ifneq ($(TW_EXCLUDE_MTP),false)
     LOCAL_CFLAGS += -DTW_HAS_MTP
 endif
 ifneq ($(TW_NO_SCREEN_TIMEOUT),)
@@ -359,7 +361,7 @@ endif
 ifneq ($(TW_CUSTOM_CPU_TEMP_PATH),)
 	LOCAL_CFLAGS += -DTW_CUSTOM_CPU_TEMP_PATH=$(TW_CUSTOM_CPU_TEMP_PATH)
 endif
-ifneq ($(TW_EXCLUDE_ENCRYPTED_BACKUPS),)
+ifneq ($(TW_EXCLUDE_ENCRYPTED_BACKUPS), true)
     LOCAL_SHARED_LIBRARIES += libopenaes
 else
     LOCAL_CFLAGS += -DTW_EXCLUDE_ENCRYPTED_BACKUPS
