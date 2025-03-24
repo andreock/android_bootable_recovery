@@ -446,7 +446,8 @@ TWRP_REQUIRED_MODULES += \
     init.recovery.service.rc \
     init.recovery.ldconfig.rc \
     awk \
-    toybox \
+    # Toybox use a lot of space. Just use toolbox
+    #toybox \
     toolbox \
     mkshrc_twrp \
     plat_hwservice_contexts \
